@@ -34,7 +34,8 @@
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0",
 		"react-scripts": "5.0.1",
-		"sass": "^1.52.2"
+		"sass": "^1.52.2",
+		"zustand": "^4.0.0-rc.1"
 	},
 	"devDependencies": {
 		"gh-pages": "^4.0.0"

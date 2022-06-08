@@ -1,0 +1,29 @@
+#board {
+	display: flex;
+	flex-direction: row;
+	gap: 4px;
+
+	padding: 4px;
+	margin: 10px;
+	width: min-content;
+	background-color: #2d2926;
+}
+
+.row {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.tile {
+	height: 4vmin;
+	width: 4vmin;
+	background-color: #4d453f;
+}
+
+.occupied {
+	border: 0.5vmin lightgray solid;
+}
+
+.fenced {
+}

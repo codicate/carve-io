@@ -8,9 +8,6 @@
 
 html,
 body {
-	height: 100vh;
-	width: 100%;
-
 	margin: 0;
 	padding: 0;
 
@@ -24,17 +21,4 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
-}
-
-a,
-button,
-input,
-textarea {
-	color: inherit;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
-	text-decoration: none;
-	background-color: transparent;
-	border: none;
 }

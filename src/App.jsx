@@ -1,7 +1,14 @@
-import styles from './App.module.scss';
+import s from './App.module.scss';
+import Board from './components/Board';
+import Control from './components/Control';
 
 function App() {
-	return <div className={styles.main}>Hello</div>;
+	return (
+		<div id={s.main}>
+			<Board />
+			<Control />
+		</div>
+	);
 }
 
 export default App;
