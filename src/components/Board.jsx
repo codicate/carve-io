@@ -24,11 +24,5 @@ const Board = () => {
 export default Board;
 
 const Tile = ({ idx, tile: { state, owner } }) => {
-	return (
-		<div
-			className={cn(s.tile, s[state])}
-			key={idx}
-			style={{ backgroundColor: owner || '#4d453f' }}
-		/>
-	);
+	return <div className={cn(s.tile, s[state], s[owner])} key={idx} />;
 };

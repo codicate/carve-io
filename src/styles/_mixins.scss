@@ -1,0 +1,21 @@
+@keyframes colorChange {
+	0% {
+		color: $red-lighten;
+	}
+
+	25% {
+		color: $blue-lighten;
+	}
+
+	50% {
+		color: $green-lighten;
+	}
+
+	75% {
+		color: $yellow-lighten;
+	}
+
+	100% {
+		color: $red-lighten;
+	}
+}

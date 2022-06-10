@@ -1,29 +1,50 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
 #board {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	gap: 4px;
 
+	height: 90vmin;
+	width: 90vmin;
+
 	padding: 4px;
-	margin: 10px;
-	width: min-content;
 	background-color: #2d2926;
+	box-shadow: 0 0 10vmin 0px #222;
 }
 
 .row {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-grow: 1;
 	gap: 4px;
 }
 
 .tile {
-	height: 4vmin;
-	width: 4vmin;
+	flex-grow: 1;
 	background-color: #4d453f;
 }
 
 .occupied {
-	border: 0.5vmin lightgray solid;
+	box-shadow: 0px 0px 0px 4px lightgray inset;
 }
 
 .fenced {
+}
+
+.red {
+	background-color: $red;
+}
+
+.blue {
+	background-color: $blue;
+}
+
+.yellow {
+	background-color: $yellow;
+}
+
+.green {
+	background-color: $green;
 }
