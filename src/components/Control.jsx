@@ -53,23 +53,9 @@ const Control = () => {
 				)}
 			</div>
 
-			<div id={s.arrows}>
-				<Arrow name="up" />
-				<Arrow name="down" />
-				<Arrow name="left" />
-				<Arrow name="right" />
-			</div>
 			<p id={s.title}>carve.io</p>
 		</div>
 	);
 };
 
 export default Control;
-
-const Arrow = ({ name }) => {
-	return (
-		<div>
-			<i id={cn(s.ib, s[name])} />
-		</div>
-	);
-};

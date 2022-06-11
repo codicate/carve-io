@@ -12,3 +12,15 @@
 	width: 100%;
 	background-color: #3a342f;
 }
+
+#github {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 1rem;
+	color: black;
+
+	&:hover {
+		color: white;
+	}
+}
