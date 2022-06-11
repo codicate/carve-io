@@ -1,39 +1,57 @@
 import s from './Control.module.scss';
 import cn from 'classnames';
 import { useState } from 'react';
+import {
+	FiPlusCircle,
+	FiMinusCircle,
+	FiArrowUpCircle,
+	FiArrowDownCircle,
+	FiArrowLeftCircle,
+	FiArrowRightCircle,
+} from 'react-icons/fi';
+import Button from './Button';
 
 const Control = () => {
 	const [numOfPlayers, setNumOfPlayers] = useState(2);
-	const startGame = () => {};
+	const [isStarted, setIsStarted] = useState(false);
+	const startGame = () => {
+		setIsStarted(true);
+	};
 
 	return (
 		<div id={s.control}>
 			<p id={s.title}>carve.io</p>
 
-			<p>Number of Players?</p>
-			<div id={s.counterContainer}>
-				<div id={s.counter}>
-					<button
-						onClick={() => {
-							if (numOfPlayers > 2) setNumOfPlayers(numOfPlayers - 1);
-						}}
-					>
-						Minus
-					</button>
-					<p>{numOfPlayers}</p>
-					<button
-						onClick={() => {
-							if (numOfPlayers < 4) setNumOfPlayers(numOfPlayers + 1);
-						}}
-					>
-						Add
-					</button>
-				</div>
+			{isStarted ? (
+				<div></div>
+			) : (
+				<div id={s.counterContainer}>
+					<p>Number of Players?</p>
+					<div id={s.counter}>
+						<Button
+							styledAs="icon"
+							onClick={() => {
+								if (numOfPlayers > 2) setNumOfPlayers(numOfPlayers - 1);
+							}}
+						>
+							<FiMinusCircle />
+						</Button>
+						<p>{numOfPlayers}</p>
+						<Button
+							styledAs="icon"
+							onClick={() => {
+								if (numOfPlayers < 4) setNumOfPlayers(numOfPlayers + 1);
+							}}
+						>
+							<FiPlusCircle />
+						</Button>
+					</div>
 
-				<button id={s.startBtn} onClick={startGame}>
-					Start
-				</button>
-			</div>
+					<Button id={s.startBtn} onClick={startGame}>
+						Start
+					</Button>
+				</div>
+			)}
 
 			<div id={s.arrows}>
 				<Arrow name="up" />
