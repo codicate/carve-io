@@ -20,38 +20,38 @@ const Control = () => {
 
 	return (
 		<div id={s.control}>
-			<p id={s.title}>carve.io</p>
+			<div id={s.controlContainer}>
+				{isStarted ? (
+					<div></div>
+				) : (
+					<div id={s.counterContainer}>
+						<p>Number of Players?</p>
+						<div id={s.counter}>
+							<Button
+								styledAs="icon"
+								onClick={() => {
+									if (numOfPlayers > 2) setNumOfPlayers(numOfPlayers - 1);
+								}}
+							>
+								<FiMinusCircle />
+							</Button>
+							<p>{numOfPlayers}</p>
+							<Button
+								styledAs="icon"
+								onClick={() => {
+									if (numOfPlayers < 4) setNumOfPlayers(numOfPlayers + 1);
+								}}
+							>
+								<FiPlusCircle />
+							</Button>
+						</div>
 
-			{isStarted ? (
-				<div></div>
-			) : (
-				<div id={s.counterContainer}>
-					<p>Number of Players?</p>
-					<div id={s.counter}>
-						<Button
-							styledAs="icon"
-							onClick={() => {
-								if (numOfPlayers > 2) setNumOfPlayers(numOfPlayers - 1);
-							}}
-						>
-							<FiMinusCircle />
-						</Button>
-						<p>{numOfPlayers}</p>
-						<Button
-							styledAs="icon"
-							onClick={() => {
-								if (numOfPlayers < 4) setNumOfPlayers(numOfPlayers + 1);
-							}}
-						>
-							<FiPlusCircle />
+						<Button id={s.startBtn} onClick={startGame}>
+							Start
 						</Button>
 					</div>
-
-					<Button id={s.startBtn} onClick={startGame}>
-						Start
-					</Button>
-				</div>
-			)}
+				)}
+			</div>
 
 			<div id={s.arrows}>
 				<Arrow name="up" />
@@ -59,6 +59,7 @@ const Control = () => {
 				<Arrow name="left" />
 				<Arrow name="right" />
 			</div>
+			<p id={s.title}>carve.io</p>
 		</div>
 	);
 };
