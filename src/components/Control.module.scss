@@ -26,6 +26,50 @@
 	box-shadow: 0 0 10vmin 0px #222;
 }
 
+#moveControl {
+	display: flex;
+	width: min-content;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 1rem;
+}
+
+#up {
+	grid-area: up;
+}
+
+#down {
+	grid-area: down;
+}
+
+#left {
+	grid-area: left;
+}
+
+#right {
+	grid-area: right;
+}
+
+#arrows {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-areas:
+		'. up .'
+		'left . right'
+		'. down .';
+	height: min-content;
+	width: min-content;
+
+	& > button {
+		font-size: 3rem;
+
+		&:focus {
+			color: white;
+		}
+	}
+}
+
 #counterContainer {
 	display: flex;
 	flex-direction: column;
