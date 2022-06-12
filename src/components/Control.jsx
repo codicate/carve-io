@@ -10,6 +10,7 @@ import {
 	FiArrowRightCircle,
 } from 'react-icons/fi';
 import Button from './Button';
+import dice from '../assets/dice';
 
 const Control = ({ isMoving, spawn, move }) => {
 	const [numOfPlayers, setNumOfPlayers] = useState(2);
@@ -30,7 +31,10 @@ const Control = ({ isMoving, spawn, move }) => {
 							<div>Moving...</div>
 						) : (
 							<div id={s.moveControl}>
-								<div></div>
+								<div id={s.dice}>
+									<img src={dice.dice1} alt="" />
+									<img src={dice.dice1} alt="" />
+								</div>
 								<div id={s.arrows}>
 									<Button
 										styledAs="icon"
