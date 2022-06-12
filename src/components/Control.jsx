@@ -30,7 +30,7 @@ const Control = ({ isMoving, spawn, move }) => {
 						) : (
 							<>
 								{' '}
-								<Button onClick={() => move('red', 'down', 5)}>Move</Button>
+								<Button onClick={() => move('red', 0, 1, 5)}>Move</Button>
 							</>
 						)}
 					</div>

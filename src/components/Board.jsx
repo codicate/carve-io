@@ -13,7 +13,7 @@ const Board = () => {
 		setPlayers((players) => players.concat({ name, x, y }));
 		setBoard((board) => {
 			let newBoard = _.cloneDeep(board);
-			newBoard[x][y] = {
+			newBoard[y][x] = {
 				state: 'occupied',
 				owner: name,
 			};
@@ -21,48 +21,48 @@ const Board = () => {
 		});
 	};
 
-	const move = (name, direction, step) => {
+	const stopMoving = (interval, pname, x, y) => {
+		setIsMoving(false);
+		setPlayers((players) => {
+			let newPlayers = _.cloneDeep(players);
+			newPlayers.find((p) => p.name === pname).x = x;
+			newPlayers.find((p) => p.name === pname).y = y;
+			return newPlayers;
+		});
+		clearInterval(interval);
+	};
+
+	const move = (pname, px, py, step) => {
 		let i = 0;
 		setIsMoving(true);
+		let { name, x, y } = players.find((p) => p.name === pname);
+
 		const interval = setInterval(() => {
-			const player = players.find((p) => p.name === name);
 			setBoard((board) => {
 				let newBoard = _.cloneDeep(board);
-				newBoard[player.x][player.y] = {
+				newBoard[y][x] = {
 					state: 'fenced',
-					owner: player.name,
+					owner: name,
 				};
 
-				switch (direction) {
-					case 'up':
-						player.y -= 1;
-						break;
-					case 'down':
-						player.y += 1;
-						break;
-					case 'left':
-						player.x -= 1;
-						break;
-					case 'right':
-						player.x += 1;
-						break;
-					default:
-						break;
-				}
+				x += px;
+				y += py;
+				i++;
 
-				newBoard[player.x][player.y] = {
+				newBoard[y][x] = {
 					state: 'occupied',
-					owner: player.name,
+					owner: name,
 				};
 
-				console.log(newBoard);
+				if (
+					i === step ||
+					(py === 0 && (x >= 20 || x <= 0)) ||
+					(px === 0 && (y >= 20 || y <= 0))
+				)
+					stopMoving(interval, pname, x, y);
+
 				return newBoard;
 			});
-			i++;
-			if (i === step) {
-				setIsMoving(false);
-				return clearInterval(interval);
-			}
 		}, 300);
 	};
 
