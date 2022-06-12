@@ -1,0 +1,35 @@
+#up {
+	grid-area: up;
+}
+
+#down {
+	grid-area: down;
+}
+
+#left {
+	grid-area: left;
+}
+
+#right {
+	grid-area: right;
+}
+
+#arrows {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-areas:
+		'. up .'
+		'left . right'
+		'. down .';
+	height: min-content;
+	width: min-content;
+
+	& > button {
+		font-size: 3rem;
+
+		&:focus {
+			color: white;
+		}
+	}
+}

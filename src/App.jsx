@@ -1,12 +1,12 @@
 import s from './App.module.scss';
-import Board from './components/Board';
+import Game from './components/Game';
 import Button from './components/Button';
 import { GoMarkGithub } from 'react-icons/go';
 
 function App() {
 	return (
 		<div id={s.main}>
-			<Board />
+			<Game />
 			<Button
 				styledAs="icon"
 				id={s.github}

@@ -1,0 +1,9 @@
+#dice {
+	display: flex;
+	gap: 1rem;
+	margin: 0 0 1rem;
+
+	& > img {
+		height: 4rem;
+	}
+}

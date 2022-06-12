@@ -1,0 +1,56 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+#main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-family: 'Kdam Thmor Pro', sans-serif;
+	color: lightgray;
+
+	height: 100vh;
+	width: 100%;
+	background-color: #3a342f;
+}
+
+#control {
+	display: flex;
+	flex-direction: column;
+	margin-left: 100px;
+	height: 85vh;
+}
+
+#title {
+	font-size: 3rem;
+	font-weight: bold;
+	text-shadow: 0 0 1rem black;
+	text-align: end;
+	margin: 1rem 2rem 0;
+	animation: colorChange infinite 10s ease-in-out;
+}
+
+#controlContainer {
+	flex-grow: 1;
+	width: 30vw;
+	padding: 2rem;
+	background-color: #4d453f;
+	border-radius: 2rem;
+	box-shadow: 0 0 10vmin 0px #222;
+}
+
+#status {
+	margin: 0 0 1rem;
+}
+
+#moveControl {
+	display: flex;
+	width: min-content;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+
+	& > button {
+		width: 9rem;
+	}
+}
