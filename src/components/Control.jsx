@@ -11,18 +11,29 @@ import {
 } from 'react-icons/fi';
 import Button from './Button';
 
-const Control = () => {
+const Control = ({ isMoving, spawn, move }) => {
 	const [numOfPlayers, setNumOfPlayers] = useState(2);
 	const [isStarted, setIsStarted] = useState(false);
+
 	const startGame = () => {
 		setIsStarted(true);
+		spawn('red', 0, 0);
 	};
 
 	return (
 		<div id={s.control}>
 			<div id={s.controlContainer}>
 				{isStarted ? (
-					<div></div>
+					<div>
+						{isMoving ? (
+							<div>Moving...</div>
+						) : (
+							<>
+								{' '}
+								<Button onClick={() => move('red', 'down', 5)}>Move</Button>
+							</>
+						)}
+					</div>
 				) : (
 					<div id={s.counterContainer}>
 						<p>Number of Players?</p>
