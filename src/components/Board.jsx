@@ -40,26 +40,28 @@ const Board = () => {
 		const interval = setInterval(() => {
 			setBoard((board) => {
 				let newBoard = _.cloneDeep(board);
-				newBoard[y][x] = {
-					state: 'fenced',
-					owner: name,
-				};
-
-				x += px;
-				y += py;
-				i++;
-
-				newBoard[y][x] = {
-					state: 'occupied',
-					owner: name,
-				};
 
 				if (
 					i === step ||
-					(py === 0 && (x >= 20 || x <= 0)) ||
-					(px === 0 && (y >= 20 || y <= 0))
-				)
+					(py === 0 && (x + px > board.length - 1 || x + px < 0)) ||
+					(px === 0 && (y + py > board.length - 1 || y + py < 0))
+				) {
 					stopMoving(interval, pname, x, y);
+				} else {
+					newBoard[y][x] = {
+						state: 'fenced',
+						owner: name,
+					};
+
+					newBoard[y + py][x + px] = {
+						state: 'occupied',
+						owner: name,
+					};
+
+					x += px;
+					y += py;
+					i++;
+				}
 
 				return newBoard;
 			});

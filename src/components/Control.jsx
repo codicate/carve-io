@@ -14,7 +14,7 @@ import Button from './Button';
 const Control = ({ isMoving, spawn, move }) => {
 	const [numOfPlayers, setNumOfPlayers] = useState(2);
 	const [isStarted, setIsStarted] = useState(false);
-	let direction = { x: 0, y: 0 };
+	const [direction, setDirection] = useState({ x: 0, y: 0 });
 
 	const startGame = () => {
 		setIsStarted(true);
@@ -30,45 +30,39 @@ const Control = ({ isMoving, spawn, move }) => {
 							<div>Moving...</div>
 						) : (
 							<div id={s.moveControl}>
+								<div></div>
 								<div id={s.arrows}>
 									<Button
 										styledAs="icon"
 										id={s.up}
-										onClick={() => {
-											direction = { x: 0, y: -1 };
-										}}
+										onClick={() => setDirection({ x: 0, y: -1 })}
 									>
 										<FiArrowUpCircle />
 									</Button>
 									<Button
 										styledAs="icon"
 										id={s.down}
-										onClick={() => {
-											direction = { x: 0, y: 1 };
-										}}
+										onClick={() => setDirection({ x: 0, y: 1 })}
 									>
 										<FiArrowDownCircle />
 									</Button>
 									<Button
 										styledAs="icon"
 										id={s.left}
-										onClick={() => {
-											direction = { x: -1, y: 0 };
-										}}
+										onClick={() => setDirection({ x: -1, y: 0 })}
 									>
 										<FiArrowLeftCircle />
 									</Button>
 									<Button
 										styledAs="icon"
 										id={s.right}
-										onClick={() => {
-											direction = { x: 1, y: 0 };
-										}}
+										onClick={() => setDirection({ x: 1, y: 0 })}
 									>
 										<FiArrowRightCircle />
 									</Button>
 								</div>
 								<Button
+									disabled={direction.x + direction.y === 0}
 									onClick={() => move('red', direction.x, direction.y, 5)}
 								>
 									Move

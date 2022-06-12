@@ -14,6 +14,12 @@
 		background-color: $black-lighten;
 		cursor: pointer;
 	}
+
+	&:disabled {
+		background-color: $black-lighten;
+		color: gray;
+		cursor: not-allowed;
+	}
 }
 
 .icon {
