@@ -10,7 +10,7 @@ import Arrows from './Arrows';
 import Counter from './Counter';
 
 const Game = () => {
-	const playerColors = ['red', 'blue', 'yellow', 'green'];
+	const playerColors = ['red', 'blue', 'yellow', 'green', 'gray'];
 	const [isStarted, setIsStarted] = useState(false);
 	const [numOfPlayers, setNumOfPlayers] = useState(2);
 	const [board, setBoard] = useState(initBoard(20));
@@ -21,37 +21,40 @@ const Game = () => {
 
 	const startGame = () => {
 		setIsStarted(true);
-		spawn('red', 0, 0);
+		spawn(0, 0, 0);
+		spawn(1, board.length - 1, board.length - 1);
+		if (numOfPlayers > 2) spawn(3, board.length - 1, 0);
+		if (numOfPlayers > 3) spawn(2, 0, board.length - 1);
 	};
 
-	const spawn = (name, x, y) => {
-		setPlayers((players) => players.concat({ name, x, y }));
+	const spawn = (index, x, y) => {
+		setPlayers((players) => players.concat({ index, x, y }));
 		setBoard((board) => {
 			let newBoard = _.cloneDeep(board);
 			newBoard[y][x] = {
 				state: 'occupied',
-				owner: name,
+				owner: index,
 			};
 			return newBoard;
 		});
 	};
 
-	const stopMoving = (interval, pname, x, y) => {
+	const stopMoving = (interval, index, x, y) => {
 		setIsMoving(false);
+		setPlayerIndex((playerIndex + 1) % numOfPlayers);
 		setPlayers((players) => {
 			let newPlayers = _.cloneDeep(players);
-			newPlayers.find((p) => p.name === pname).x = x;
-			newPlayers.find((p) => p.name === pname).y = y;
+			newPlayers.find((p) => p.index === index).x = x;
+			newPlayers.find((p) => p.index === index).y = y;
 			return newPlayers;
 		});
-		setPlayerIndex((playerIndex + 1) % 4);
 		clearInterval(interval);
 	};
 
-	const move = (pname, px, py, step) => {
+	const move = (pIndex, px, py, step) => {
 		let i = 0;
 		setIsMoving(true);
-		let { name, x, y } = players.find((p) => p.name === pname);
+		let { index, x, y } = players.find((p) => p.index === pIndex);
 
 		const interval = setInterval(() => {
 			setBoard((board) => {
@@ -62,16 +65,16 @@ const Game = () => {
 					(py === 0 && (x + px > board.length - 1 || x + px < 0)) ||
 					(px === 0 && (y + py > board.length - 1 || y + py < 0))
 				) {
-					stopMoving(interval, pname, x, y);
+					stopMoving(interval, index, x, y);
 				} else {
 					newBoard[y][x] = {
 						state: 'fenced',
-						owner: name,
+						owner: index,
 					};
 
 					newBoard[y + py][x + px] = {
 						state: 'occupied',
-						owner: name,
+						owner: index,
 					};
 
 					x += px;
@@ -122,7 +125,7 @@ const initBoard = (size) => {
 		for (let j = 0; j < size; j++) {
 			row[j] = {
 				state: 'unclaimed', // unclaimed, claimed, occupied, fenced
-				owner: '', // red, blue, yellow, green
+				owner: 5, // red, blue, yellow, green
 			};
 		}
 

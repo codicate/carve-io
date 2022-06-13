@@ -49,7 +49,7 @@ const Arrows = ({ playerIndex, move, steps }) => {
 			</div>
 			<Button
 				disabled={direction.x + direction.y === 0}
-				onClick={() => move('red', direction.x, direction.y, steps)}
+				onClick={() => move(playerIndex, direction.x, direction.y, steps)}
 			>
 				Move
 			</Button>
