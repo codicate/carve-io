@@ -6,37 +6,52 @@ import {
 	FiArrowLeftCircle,
 	FiArrowRightCircle,
 } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 
-const Arrows = ({ setDirection }) => {
+const Arrows = ({ playerIndex, move, steps }) => {
+	const [direction, setDirection] = useState({ x: 0, y: 0 });
+
+	useEffect(() => {
+		setDirection({ x: 0, y: 0 });
+	}, [playerIndex]);
+
 	return (
-		<div id={s.arrows}>
+		<div>
+			<div id={s.arrows}>
+				<Button
+					styledAs="icon"
+					id={s.up}
+					onClick={() => setDirection({ x: 0, y: -1 })}
+				>
+					<FiArrowUpCircle />
+				</Button>
+				<Button
+					styledAs="icon"
+					id={s.down}
+					onClick={() => setDirection({ x: 0, y: 1 })}
+				>
+					<FiArrowDownCircle />
+				</Button>
+				<Button
+					styledAs="icon"
+					id={s.left}
+					onClick={() => setDirection({ x: -1, y: 0 })}
+				>
+					<FiArrowLeftCircle />
+				</Button>
+				<Button
+					styledAs="icon"
+					id={s.right}
+					onClick={() => setDirection({ x: 1, y: 0 })}
+				>
+					<FiArrowRightCircle />
+				</Button>
+			</div>
 			<Button
-				styledAs="icon"
-				id={s.up}
-				onClick={() => setDirection({ x: 0, y: -1 })}
+				disabled={direction.x + direction.y === 0}
+				onClick={() => move('red', direction.x, direction.y, steps)}
 			>
-				<FiArrowUpCircle />
-			</Button>
-			<Button
-				styledAs="icon"
-				id={s.down}
-				onClick={() => setDirection({ x: 0, y: 1 })}
-			>
-				<FiArrowDownCircle />
-			</Button>
-			<Button
-				styledAs="icon"
-				id={s.left}
-				onClick={() => setDirection({ x: -1, y: 0 })}
-			>
-				<FiArrowLeftCircle />
-			</Button>
-			<Button
-				styledAs="icon"
-				id={s.right}
-				onClick={() => setDirection({ x: 1, y: 0 })}
-			>
-				<FiArrowRightCircle />
+				Move
 			</Button>
 		</div>
 	);

@@ -17,7 +17,6 @@ const Game = () => {
 	const [players, setPlayers] = useState([]);
 	const [playerIndex, setPlayerIndex] = useState(0);
 	const [isMoving, setIsMoving] = useState(false);
-	const [direction, setDirection] = useState({ x: 0, y: 0 });
 	const [steps, setSteps] = useState(0);
 
 	const startGame = () => {
@@ -97,14 +96,8 @@ const Game = () => {
 							) : (
 								<div id={s.moveControl}>
 									<p id={s.status}>{playerColors[playerIndex]}'s move:</p>
-									<Dice {...{ setSteps }} />
-									<Arrows {...{ setDirection }} />
-									<Button
-										disabled={direction.x + direction.y === 0}
-										onClick={() => move('red', direction.x, direction.y, 5)}
-									>
-										Move
-									</Button>
+									<Dice {...{ playerIndex, setSteps }} />
+									<Arrows {...{ playerIndex, move, steps }} />
 								</div>
 							)}
 						</>
