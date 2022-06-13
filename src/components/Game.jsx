@@ -62,6 +62,8 @@ const Game = () => {
 		}
 	};
 
+	const claimArea = (newBoard) => {};
+
 	const stopMoving = (interval, index, x, y) => {
 		setIsMoving(false);
 		setPlayerIndex((playerIndex + 1) % numOfPlayers);
@@ -89,28 +91,26 @@ const Game = () => {
 						state: 'fenced',
 						owner: index,
 					};
+					const nextTile = newBoard[y + py][x + px];
 
-					if (newBoard[y + py][x + px].state === 'occupied') {
+					if (nextTile.state === 'occupied') {
 						newBoard[board.length - 1][board.length - 1] = {
 							state: 'occupied',
-							owner: newBoard[y + py][x + px].owner,
+							owner: nextTile.owner,
 						};
 
-						updatePlayer(
-							newBoard[y + py][x + px].owner,
-							board.length - 1,
-							board.length - 1
-						);
-
-						cleanBoard(newBoard, newBoard[y + py][x + px].owner, [
-							'claimed',
-							'fenced',
-						]);
+						updatePlayer(nextTile.owner, board.length - 1, board.length - 1);
+						cleanBoard(newBoard, nextTile.owner, ['claimed', 'fenced']);
 					}
 
-					if (newBoard[y + py][x + px].state === 'fenced') {
-						cleanBoard(newBoard, newBoard[y + py][x + px].owner, ['fenced']);
-					}
+					if (nextTile.state === 'fenced' && nextTile.owner !== playerIndex)
+						cleanBoard(newBoard, nextTile.owner, ['fenced']);
+
+					if (
+						nextTile.owner === playerIndex &&
+						['claimed', 'fenced'].includes(nextTile.state)
+					)
+						claimArea(newBoard);
 
 					newBoard[y + py][x + px] = {
 						state: 'occupied',
