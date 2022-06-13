@@ -2,6 +2,8 @@
 
 territory carving local multiplayer board game inspired by splix.io
 
+made for my AP microeconomics project
+
 ### How to play
 
 - the goal is to claim the most tiles
