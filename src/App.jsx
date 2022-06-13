@@ -11,7 +11,10 @@ function App() {
 				<Button
 					styledAs="icon"
 					onClick={() => {
-						window.open('https://github.com/codicate/carve-io/', '_blank');
+						window.open(
+							'https://github.com/codicate/carve-io/blob/main/README.md#how-to-play',
+							'_blank'
+						);
 					}}
 				>
 					<AiFillQuestionCircle />
