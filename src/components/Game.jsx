@@ -8,6 +8,7 @@ import Button from './Button';
 import Dice from './Dice';
 import Arrows from './Arrows';
 import Counter from './Counter';
+import claimArea from '../utils/claimArea';
 
 const Game = () => {
 	const playerColors = ['red', 'blue', 'yellow', 'green', 'gray'];
@@ -61,8 +62,6 @@ const Game = () => {
 			}
 		}
 	};
-
-	const claimArea = (newBoard) => {};
 
 	const stopMoving = (interval, index, x, y) => {
 		setIsMoving(false);
