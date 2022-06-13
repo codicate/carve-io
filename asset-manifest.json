@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/carve-io/static/css/main.229e01f1.css",
-    "main.js": "/carve-io/static/js/main.99af7f58.js",
+    "main.css": "/carve-io/static/css/main.c48ae42f.css",
+    "main.js": "/carve-io/static/js/main.d90540e4.js",
     "index.html": "/carve-io/index.html",
-    "main.229e01f1.css.map": "/carve-io/static/css/main.229e01f1.css.map",
-    "main.99af7f58.js.map": "/carve-io/static/js/main.99af7f58.js.map"
+    "main.c48ae42f.css.map": "/carve-io/static/css/main.c48ae42f.css.map",
+    "main.d90540e4.js.map": "/carve-io/static/js/main.d90540e4.js.map"
   },
   "entrypoints": [
-    "static/css/main.229e01f1.css",
-    "static/js/main.99af7f58.js"
+    "static/css/main.c48ae42f.css",
+    "static/js/main.d90540e4.js"
   ]
 }
