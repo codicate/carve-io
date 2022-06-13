@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
 
-#github {
+#info {
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	margin: 1rem;
-	color: black;
 
-	&:hover {
-		color: white;
+	display: flex;
+	gap: 1rem;
+
+	& > button {
+		font-size: 2rem;
+		color: black;
+
+		&:hover {
+			color: white;
+		}
 	}
 }
