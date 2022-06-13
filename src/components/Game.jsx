@@ -22,9 +22,9 @@ const Game = () => {
 	const startGame = () => {
 		setIsStarted(true);
 		spawn(0, 0, 0);
-		spawn(1, board.length - 1, board.length - 1);
+		spawn(1, 0, board.length - 1);
 		if (numOfPlayers > 2) spawn(3, board.length - 1, 0);
-		if (numOfPlayers > 3) spawn(2, 0, board.length - 1);
+		if (numOfPlayers > 3) spawn(2, board.length - 1, board.length - 1);
 	};
 
 	const spawn = (index, x, y) => {
@@ -39,15 +39,33 @@ const Game = () => {
 		});
 	};
 
-	const stopMoving = (interval, index, x, y) => {
-		setIsMoving(false);
-		setPlayerIndex((playerIndex + 1) % numOfPlayers);
+	const updatePlayer = (index, x, y) => {
 		setPlayers((players) => {
 			let newPlayers = _.cloneDeep(players);
 			newPlayers.find((p) => p.index === index).x = x;
 			newPlayers.find((p) => p.index === index).y = y;
 			return newPlayers;
 		});
+	};
+
+	const cleanBoard = (newBoard, index, states) => {
+		for (let i = 0; i < board.length; i++) {
+			for (let j = 0; j < board.length; j++) {
+				if (
+					newBoard[i][j].owner === index &&
+					states.includes(newBoard[i][j].state)
+				) {
+					newBoard[i][j].state = 'unclaimed';
+					newBoard[i][j].owner = 5;
+				}
+			}
+		}
+	};
+
+	const stopMoving = (interval, index, x, y) => {
+		setIsMoving(false);
+		setPlayerIndex((playerIndex + 1) % numOfPlayers);
+		updatePlayer(index, x, y);
 		clearInterval(interval);
 	};
 
@@ -72,6 +90,28 @@ const Game = () => {
 						owner: index,
 					};
 
+					if (newBoard[y + py][x + px].state === 'occupied') {
+						newBoard[board.length - 1][board.length - 1] = {
+							state: 'occupied',
+							owner: newBoard[y + py][x + px].owner,
+						};
+
+						updatePlayer(
+							newBoard[y + py][x + px].owner,
+							board.length - 1,
+							board.length - 1
+						);
+
+						cleanBoard(newBoard, newBoard[y + py][x + px].owner, [
+							'claimed',
+							'fenced',
+						]);
+					}
+
+					if (newBoard[y + py][x + px].state === 'fenced') {
+						cleanBoard(newBoard, newBoard[y + py][x + px].owner, ['fenced']);
+					}
+
 					newBoard[y + py][x + px] = {
 						state: 'occupied',
 						owner: index,
@@ -84,7 +124,7 @@ const Game = () => {
 
 				return newBoard;
 			});
-		}, 300);
+		}, 100);
 	};
 
 	return (
