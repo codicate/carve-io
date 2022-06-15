@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 
-const Arrows = ({ playerIndex, move, steps }) => {
+const Arrows = ({ playerIndex, move, steps, gameState }) => {
 	const [direction, setDirection] = useState({ x: 0, y: 0 });
 
 	useEffect(() => {
@@ -48,7 +48,7 @@ const Arrows = ({ playerIndex, move, steps }) => {
 				</Button>
 			</div>
 			<Button
-				disabled={direction.x + direction.y === 0}
+				disabled={direction.x + direction.y === 0 || gameState !== 'rolled'}
 				onClick={() => move(playerIndex, direction.x, direction.y, steps)}
 			>
 				Move

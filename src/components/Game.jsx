@@ -16,8 +16,8 @@ const Game = () => {
 	const [board, setBoard] = useState(initBoard(20));
 	const [players, setPlayers] = useState([]);
 	const [playerIndex, setPlayerIndex] = useState(0);
-	const [isMoving, setIsMoving] = useState(false);
 	const [steps, setSteps] = useState(0);
+	const [gameState, setGameState] = useState('question'); // 'question', 'rolled'
 
 	const startGame = () => {
 		setIsStarted(true);
@@ -82,15 +82,15 @@ const Game = () => {
 	};
 
 	const stopMoving = (interval, index, x, y) => {
-		setIsMoving(false);
 		setPlayerIndex((playerIndex + 1) % numOfPlayers);
+		setGameState('question');
 		updatePlayer(index, x, y);
 		clearInterval(interval);
 	};
 
 	const move = (pIndex, px, py, step) => {
 		let i = 0;
-		setIsMoving(true);
+		setGameState('moving');
 		let { index, x, y } = players.find((p) => p.index === pIndex);
 
 		const interval = setInterval(() => {
@@ -118,6 +118,11 @@ const Game = () => {
 
 						updatePlayer(nextTile.owner, board.length - 1, board.length - 1, 0);
 						cleanBoard(newBoard, nextTile.owner);
+						setPlayers((players) => {
+							let newPlayers = _.cloneDeep(players);
+							newPlayers.find((p) => p.index === nextTile.owner).score = 0;
+							return newPlayers;
+						});
 					}
 
 					if (nextTile.state === 'fenced' && nextTile.owner !== playerIndex) {
@@ -160,7 +165,7 @@ const Game = () => {
 				<div id={s.controlContainer}>
 					{isStarted ? (
 						<>
-							{isMoving ? (
+							{gameState === 'moving' ? (
 								<p id={s.status}>{playerColors[playerIndex]} is moving...</p>
 							) : (
 								<div id={s.moveControl}>
@@ -170,8 +175,10 @@ const Game = () => {
 										</span>
 										turn:
 									</p>
-									<Dice {...{ playerIndex, setSteps }} />
-									<Arrows {...{ playerIndex, move, steps }} />
+									<Dice
+										{...{ playerIndex, setSteps, gameState, setGameState }}
+									/>
+									<Arrows {...{ playerIndex, move, steps, gameState }} />
 								</div>
 							)}
 						</>
