@@ -8,7 +8,6 @@ import Button from './Button';
 import Dice from './Dice';
 import Arrows from './Arrows';
 import Counter from './Counter';
-import claimArea from '../utils/claimArea';
 
 const Game = () => {
 	const playerColors = ['red', 'blue', 'yellow', 'green', 'gray'];
@@ -54,7 +53,7 @@ const Game = () => {
 			for (let j = 0; j < board.length; j++) {
 				if (
 					newBoard[i][j].owner === index &&
-					states.includes(newBoard[i][j].state)
+					newBoard[i][j].state === 'fenced'
 				) {
 					newBoard[i][j].state = 'unclaimed';
 					newBoard[i][j].owner = 5;
@@ -62,6 +61,8 @@ const Game = () => {
 			}
 		}
 	};
+
+	const recordScore = (newBoard, index) => {};
 
 	const stopMoving = (interval, index, x, y) => {
 		setIsMoving(false);
@@ -99,17 +100,14 @@ const Game = () => {
 						};
 
 						updatePlayer(nextTile.owner, board.length - 1, board.length - 1);
-						cleanBoard(newBoard, nextTile.owner, ['claimed', 'fenced']);
+						cleanBoard(newBoard, nextTile.owner);
 					}
 
 					if (nextTile.state === 'fenced' && nextTile.owner !== playerIndex)
 						cleanBoard(newBoard, nextTile.owner, ['fenced']);
 
-					if (
-						nextTile.owner === playerIndex &&
-						['claimed', 'fenced'].includes(nextTile.state)
-					)
-						claimArea(newBoard);
+					if (nextTile.owner === playerIndex && nextTile.state === 'fenced')
+						recordScore(newBoard);
 
 					newBoard[y + py][x + px] = {
 						state: 'occupied',
@@ -163,7 +161,7 @@ const initBoard = (size) => {
 
 		for (let j = 0; j < size; j++) {
 			row[j] = {
-				state: 'unclaimed', // unclaimed, claimed, occupied, fenced
+				state: 'unclaimed', // unclaimed, occupied, fenced
 				owner: 5, // red, blue, yellow, green
 			};
 		}
