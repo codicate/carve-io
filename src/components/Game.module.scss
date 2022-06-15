@@ -14,10 +14,21 @@
 	background-color: #3a342f;
 }
 
+#score {
+	width: 8rem;
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: flex-end;
+	margin-right: 3rem;
+	font-size: 1.5rem;
+}
+
 #control {
 	display: flex;
 	flex-direction: column;
-	margin-left: 100px;
+	margin-left: 3rem;
 	height: 85vh;
 }
 
@@ -50,4 +61,20 @@
 		justify-content: space-between;
 		gap: 2rem;
 	}
+}
+
+.red {
+	color: $red;
+}
+
+.blue {
+	color: $blue;
+}
+
+.yellow {
+	color: $yellow;
+}
+
+.green {
+	color: $green;
 }

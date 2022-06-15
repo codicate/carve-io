@@ -28,7 +28,7 @@ const Game = () => {
 	};
 
 	const spawn = (index, x, y) => {
-		setPlayers((players) => players.concat({ index, x, y }));
+		setPlayers((players) => players.concat({ index, x, y, score: 0 }));
 		setBoard((board) => {
 			let newBoard = _.cloneDeep(board);
 			newBoard[y][x] = {
@@ -62,7 +62,24 @@ const Game = () => {
 		}
 	};
 
-	const recordScore = (newBoard, index) => {};
+	const recordScore = (newBoard) => {
+		let score = 0;
+		for (let i = 0; i < newBoard.length; i++)
+			for (let j = 0; j < newBoard.length; j++)
+				if (
+					newBoard[i][j].state === 'fenced' &&
+					newBoard[i][j].owner === playerIndex
+				)
+					score++;
+
+		setPlayers((players) => {
+			let newPlayers = _.cloneDeep(players);
+			const oldScore = newPlayers.find((p) => p.index === playerIndex).score;
+			if (oldScore < score)
+				newPlayers.find((p) => p.index === playerIndex).score = score;
+			return newPlayers;
+		});
+	};
 
 	const stopMoving = (interval, index, x, y) => {
 		setIsMoving(false);
@@ -99,20 +116,20 @@ const Game = () => {
 							owner: nextTile.owner,
 						};
 
-						updatePlayer(nextTile.owner, board.length - 1, board.length - 1);
+						updatePlayer(nextTile.owner, board.length - 1, board.length - 1, 0);
 						cleanBoard(newBoard, nextTile.owner);
 					}
 
-					if (nextTile.state === 'fenced' && nextTile.owner !== playerIndex)
+					if (nextTile.state === 'fenced' && nextTile.owner !== playerIndex) {
 						cleanBoard(newBoard, nextTile.owner, ['fenced']);
-
-					if (nextTile.owner === playerIndex && nextTile.state === 'fenced')
-						recordScore(newBoard);
+					}
 
 					newBoard[y + py][x + px] = {
 						state: 'occupied',
 						owner: index,
 					};
+
+					recordScore(newBoard);
 
 					x += px;
 					y += py;
@@ -126,6 +143,18 @@ const Game = () => {
 
 	return (
 		<div id={s.main}>
+			<div id={s.score}>
+				{players.map((p) => {
+					return (
+						<div key={p.index}>
+							<span className={s[playerColors[p.index]]}>
+								{playerColors[p.index]}:
+							</span>{' '}
+							{p.score || 0}
+						</div>
+					);
+				})}
+			</div>
 			<Board board={board} />
 			<div id={s.control}>
 				<div id={s.controlContainer}>
@@ -135,7 +164,12 @@ const Game = () => {
 								<p id={s.status}>{playerColors[playerIndex]} is moving...</p>
 							) : (
 								<div id={s.moveControl}>
-									<p id={s.status}>{playerColors[playerIndex]}'s move:</p>
+									<p id={s.status}>
+										<span className={s[playerColors[playerIndex]]}>
+											{playerColors[playerIndex]}'s{' '}
+										</span>
+										turn:
+									</p>
 									<Dice {...{ playerIndex, setSteps }} />
 									<Arrows {...{ playerIndex, move, steps }} />
 								</div>
