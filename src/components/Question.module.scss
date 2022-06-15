@@ -1,0 +1,32 @@
+@import '/src/styles/variables';
+
+#question {
+	display: flex;
+	flex-direction: column;
+}
+
+#choices {
+	display: flex;
+	flex-direction: column;
+}
+
+.selected {
+	background-color: $black-lighten;
+}
+
+.incorrect {
+	color: #ccc;
+	background-color: #af1729;
+
+	&:hover {
+		background-color: #af1729;
+	}
+}
+
+.correct {
+	background-color: #438b23;
+
+	&:hover {
+		background-color: #438b23;
+	}
+}

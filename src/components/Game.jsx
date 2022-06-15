@@ -1,13 +1,12 @@
 import s from './Game.module.scss';
-import cn from 'classnames';
 import _ from 'lodash';
 import { useState } from 'react';
 
 import Board from './Board';
-import Button from './Button';
 import Dice from './Dice';
 import Arrows from './Arrows';
 import Counter from './Counter';
+import Question from './Question';
 
 const Game = () => {
 	const playerColors = ['red', 'blue', 'yellow', 'green', 'gray'];
@@ -18,6 +17,7 @@ const Game = () => {
 	const [playerIndex, setPlayerIndex] = useState(0);
 	const [steps, setSteps] = useState(0);
 	const [gameState, setGameState] = useState('question'); // 'question', 'rolled'
+	const [questionIndex, setQuestionIndex] = useState(0);
 
 	const startGame = () => {
 		setIsStarted(true);
@@ -83,6 +83,7 @@ const Game = () => {
 
 	const stopMoving = (interval, index, x, y) => {
 		setPlayerIndex((playerIndex + 1) % numOfPlayers);
+		setQuestionIndex((index) => (index + 1) % 25);
 		setGameState('question');
 		updatePlayer(index, x, y);
 		clearInterval(interval);
@@ -175,6 +176,9 @@ const Game = () => {
 										</span>
 										turn:
 									</p>
+									<Question
+										{...{ index: questionIndex, gameState, setGameState }}
+									/>
 									<Dice
 										{...{ playerIndex, setSteps, gameState, setGameState }}
 									/>
