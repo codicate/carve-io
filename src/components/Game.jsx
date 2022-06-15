@@ -22,9 +22,9 @@ const Game = () => {
 	const startGame = () => {
 		setIsStarted(true);
 		spawn(0, 0, 0);
-		spawn(1, 0, board.length - 1);
+		spawn(1, board.length - 1, board.length - 1);
 		if (numOfPlayers > 2) spawn(3, board.length - 1, 0);
-		if (numOfPlayers > 3) spawn(2, board.length - 1, board.length - 1);
+		if (numOfPlayers > 3) spawn(2, 0, board.length - 1);
 	};
 
 	const spawn = (index, x, y) => {
@@ -144,7 +144,7 @@ const Game = () => {
 
 				return newBoard;
 			});
-		}, 100);
+		}, 200);
 	};
 
 	return (
